@@ -24,7 +24,9 @@ def getJSONFromFile(filename):
 
 def checkForRaffles():
     oldSneakerJson = getJSONFromFile('sneakers.json')
-    return ([d for d in oldSneakerJson if d['status'] == 'Enter Raffle'])
+    raffles = ([d for d in oldSneakerJson if d['status'] == 'Enter Raffle'])
+    print(raffles)
+    return raffles
 
 def checkForChanges():
     oldSneakerJson = getJSONFromFile('sneakers.json')
