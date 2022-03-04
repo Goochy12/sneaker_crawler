@@ -2,7 +2,7 @@ import discord
 import asyncio
 import json
 import os
-
+from dotenv import load_dotenv
 import sneaker_code
 
 sneakers = []
@@ -79,4 +79,5 @@ async def on_ready():
     serverInfo = openFile(server_file_string)
 
 if __name__ == "__main__":
+    load_dotenv()
     client.run(os.getenv('TOKEN'))
