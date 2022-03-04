@@ -67,7 +67,7 @@ def saveFile(filename, data):
 async def on_message(message):
     global serverInfo
     if message.content.startswith('~setchannel'):
-        setChannel(channel_id=message.guild.id, text_channel=message.channel.id)
+        setChannel(channel_id=str(message.guild.id), text_channel=message.channel.id)
         await client.get_channel(message.channel.id).send("Default Channel changed to " + client.get_channel(message.channel.id).name)
 
 
