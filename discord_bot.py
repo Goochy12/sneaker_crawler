@@ -1,27 +1,32 @@
 import discord
 import asyncio
+import json
+import os
 
 import sneaker_code
 
 sneakers = []
 changes = False
-channel = None
+serverInfo = {}
 
 raffle_message_true = "\U0001F911" + ' Raffles Live! ' + "\U0001F911"
 raffle_message_false = "No Raffles!"
 raffle_message_current = ""
+server_file_string = "servers.json"
 
 client = discord.Client()
 
 async def check_sneakers():
-    global channel
+    global serverInfo
     while True:
         print("LOOPING")
         changes = sneaker_code.checkForChanges()
 
         if changes["changes"] == True:
-            if channel != None:
-                await channel.send("New Sneakers Available")
+            if serverInfo:
+                for server in serverInfo.values():
+                    print(server)
+                    await client.get_channel(server).send("New Sneakers Available")
             pass
         if changes["raffle"] == True:
             raffle_message_current = raffle_message_true
@@ -36,17 +41,42 @@ async def check_sneakers():
 
         await asyncio.sleep(30)
 
+def setChannel(channel_id, text_channel):
+    global serverInfo
+
+    serverInfo[channel_id] = text_channel
+    print(serverInfo)
+
+    saveFile(server_file_string, serverInfo)
+
+def openFile(filename):
+    serverInfo = {}
+    try:
+        with open(filename, "r") as f:
+            serverInfo = json.load(f)
+    except:
+        serverInfo = {}
+
+    return serverInfo
+
+def saveFile(filename, data):
+    with open(filename, "w") as f:
+        json.dump(data, f)
+
 @client.event
 async def on_message(message):
-    global channel
+    global serverInfo
     if message.content.startswith('~setchannel'):
-        channel = message.channel
-        await channel.send("Default Channel changed to " + channel.name)
+        setChannel(channel_id=message.guild.id, text_channel=message.channel.id)
+        await client.get_channel(message.channel.id).send("Default Channel changed to " + client.get_channel(message.channel.id).name)
+
 
 @client.event
 async def on_ready():
+    global serverInfo
     print("Logged on as {0.user}".format(client))
     client.loop.create_task(check_sneakers())
+    serverInfo = openFile(server_file_string)
 
 if __name__ == "__main__":
-    client.run('OTQ2NzQxNDEwNzYwMTA1OTk0.YhjHpQ.P9dF620dtvXCT_-n_vxC671QkDM')
+    client.run(os.getenv('TOKEN'))

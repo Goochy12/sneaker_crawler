@@ -55,7 +55,7 @@ def checkForChanges():
     saveFile(newSneakerJson, "sneakers.json")
     #check for changes here
     # old sneakers = new sneakers
-    return {"changes": True, "raffle": False}
+    # return {"changes": True, "raffle": False}
     return changes
 
 def startup():
