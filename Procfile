@@ -1,1 +1,1 @@
-worker: python sneaker_crawler/discord-bot.py
+worker: python discord_bot.py
