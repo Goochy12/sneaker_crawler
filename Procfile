@@ -1,1 +1,1 @@
-web: gunicorn discord-bot.wsgi
+worker: python3 discord-bot.py
