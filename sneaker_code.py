@@ -39,7 +39,7 @@ def checkForChanges():
     newSneakerJson = getJSONFromFile('sneakers_new.json')
 
     # print(newSneakerJson)
-    difference = [x for x in oldSneakerJson + newSneakerJson if x not in oldSneakerJson or x not in newSneakerJson]
+    difference = [x for x in newSneakerJson if x not in oldSneakerJson or x not in newSneakerJson]
     print(len(oldSneakerJson))
     print(len(newSneakerJson))
     print(len(difference))
