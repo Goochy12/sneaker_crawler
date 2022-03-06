@@ -44,13 +44,16 @@ def checkForChanges():
     print(len(newSneakerJson))
     print(len(difference))
 
-    raffles = checkForRaffles(newSneakerJson)
+    new_raffles = checkForRaffles(difference)
+    live_raffles = checkForRaffles(newSneakerJson)
 
-    changes = {"changes": False, "raffle": False}
+    changes = {"changes": False, "raffle": False, "live_raffle": False}
     if difference:
         changes["changes"] = True
-    if raffles:
+    if new_raffles:
         changes["raffle"] = True
+    if live_raffles:
+        changes["live_raffle"] = True
 
     saveFile(newSneakerJson, "sneakers.json")
     #check for changes here
@@ -59,5 +62,5 @@ def checkForChanges():
     return changes
 
 def startup():
-    newCrawl('sneakers')
-
+    # newCrawl('sneakers')
+    print(checkForChanges())
