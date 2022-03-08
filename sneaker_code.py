@@ -68,5 +68,5 @@ def startup():
     print(checkForChanges())
 
 
-if __name__ == "__main__":
-    checkForChanges()
+# if __name__ == "__main__":
+#     print(checkForChanges())
