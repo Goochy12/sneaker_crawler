@@ -10,6 +10,7 @@ class RafflesSpider(scrapy.Spider):
     def parse(self, response):
         for sneaker in response.xpath('//div[has-class("post-row")]'):
             yield {
-                'name' : sneaker.xpath('.//div[has-class("post-title-wrap")]//h3//a/text()').get(),
+                'name': sneaker.xpath('.//div[has-class("post-title-wrap")]//h3//a/text()').get(),
                 'status': sneaker.xpath('.//div[has-class("post-link-wrap")]//h3//a/text()').get(),
+                'link': sneaker.xpath('.//div[has-class("post-link-wrap")]//h3//a/@href').get(),
             }

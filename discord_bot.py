@@ -32,7 +32,8 @@ async def check_sneakers():
             if serverInfo:
                 for server in serverInfo.values():
                     print(server)
-                    await client.get_channel(server).send("New Raffle is Live!")
+                    for sneaker in changes["raffle-details"]:
+                        await client.get_channel(server).send("Raffle for: " + sneaker["name"] + "\n" + sneaker["link"])
 
         if changes["live_raffle"] == True:
             raffle_message_current = raffle_message_true

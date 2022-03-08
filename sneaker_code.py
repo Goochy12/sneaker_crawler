@@ -40,18 +40,20 @@ def checkForChanges():
 
     # print(newSneakerJson)
     difference = [x for x in newSneakerJson if x not in oldSneakerJson or x not in newSneakerJson]
-    print(len(oldSneakerJson))
-    print(len(newSneakerJson))
-    print(len(difference))
+    print("Length of old JSON: " + str(len(oldSneakerJson)))
+    print("Length of new JSON: " + str(len(newSneakerJson)))
+    print("Length of difference: " + str(len(difference)))
+    print(difference)
 
     new_raffles = checkForRaffles(difference)
     live_raffles = checkForRaffles(newSneakerJson)
 
-    changes = {"changes": False, "raffle": False, "live_raffle": False}
+    changes = {"changes": False, "raffle": False, "live_raffle": False, "raffle-details": []}
     if difference:
         changes["changes"] = True
     if new_raffles:
         changes["raffle"] = True
+        changes["raffle_details"] = difference
     if live_raffles:
         changes["live_raffle"] = True
 
@@ -64,3 +66,7 @@ def checkForChanges():
 def startup():
     # newCrawl('sneakers')
     print(checkForChanges())
+
+
+if __name__ == "__main__":
+    checkForChanges()
