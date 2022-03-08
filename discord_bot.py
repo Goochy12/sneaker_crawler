@@ -22,11 +22,11 @@ async def check_sneakers():
         print("LOOPING")
         changes = sneaker_code.checkForChanges()
 
-        if changes["changes"] == True:
-            if serverInfo:
-                for server in serverInfo.values():
-                    print(server)
-                    await client.get_channel(server).send("New Sneakers Available")
+        # if changes["changes"] == True:
+        #     if serverInfo:
+        #         for server in serverInfo.values():
+        #             print(server)
+        #             await client.get_channel(server).send("New Sneakers Available")
 
         if changes["raffle"] == True:
             if serverInfo:
