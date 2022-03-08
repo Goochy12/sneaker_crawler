@@ -31,8 +31,9 @@ async def check_sneakers():
         if changes["raffle"] == True:
             if serverInfo:
                 for server in serverInfo.values():
-                    print(server)
+                    print("Server: " + str(server))
                     for sneaker in changes["raffle-details"]:
+                        print(sneaker)
                         await client.get_channel(server).send("Raffle for: " + sneaker["name"] + "\n" + sneaker["link"])
 
         if changes["live_raffle"] == True:
@@ -40,9 +41,10 @@ async def check_sneakers():
         else:
             raffle_message_current = raffle_message_false
 
-        print(changes["changes"])
-        print(changes["raffle"])
-        print(changes["live_raffle"])
+        print("Changes: " + str(changes["changes"]))
+        print("New Raffles: " + str(changes["raffle"]))
+        print(changes["raffle-details"])
+        print("Live Raffles: " + str(changes["live_raffle"]))
         print(raffle_message_current)
 
         await client.change_presence(activity=discord.Game(name=raffle_message_current))
