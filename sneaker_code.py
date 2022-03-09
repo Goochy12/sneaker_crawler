@@ -33,7 +33,7 @@ def saveFile(file, filename):
 def checkForChanges():
     oldSneakerJson = getJSONFromFile('sneakers.json')
     if oldSneakerJson is {}:
-        newCrawl('sneakers')
+        oldSneakerJson = newCrawl('sneakers')
 
     newCrawl('sneakers_new')
     newSneakerJson = getJSONFromFile('sneakers_new.json')
